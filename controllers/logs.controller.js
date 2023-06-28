@@ -12,7 +12,7 @@ router.get("/:arrayIndex", (req, res) => {
     if (!logsModel[arrayIndex]) {
     res.redirect('http://localhost:3003/404')
     } else {
-      res.json({ status: true, data: logsModel[arrayIndex] });
+      res.json(logsModel[arrayIndex]);
     }
 });
 
