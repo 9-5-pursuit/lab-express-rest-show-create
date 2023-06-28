@@ -41,19 +41,18 @@ router.delete("/logs/:id", (req, res) => {
     }
 });
 router.put("/logs/:id", (req, res) => {
-    res.send("testing");
-    // const newLog = req.body;
-    // const { id } = req.params;
-    // let foundIndex = logsArray[id];
-    // if (!foundIndex) {
-    //     res.status(404).json({
-    //         status: false,
-    //         message: "sorry, no log with this ID found",
-    //     });
-    // } else {
-    //     logsArray[id] = newLog;
-    //     res.json(logsArray[id]);
-    // }
+    const newLog = req.body;
+    const { id } = req.params;
+    let foundIndex = logsArray[id];
+    if (!foundIndex) {
+        res.status(404).json({
+            status: false,
+            message: "sorry, no log with this ID found",
+        });
+    } else {
+        logsArray[id] = newLog;
+        res.json(logsArray[id]);
+    }
 });
 router.get("/not-found", (req, res) => {
     res.send("Page not found.");
