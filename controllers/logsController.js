@@ -22,6 +22,23 @@ logs.post("/", logsValidator, (request, response) => {
   response.status(201).json(logsArray);
 });
 
-
+logs.put("/:index", logsValidator, (request, response) => {
+  const { index } = request.params;
+  if (logsArray[index]) {
+    logsArray[index] = request.body;
+    response.status(200).json(logsArray[index]);
+  } else {
+    response.status(404).json({ error: "Not Found" });
+  }
+});
+logs.delete("/:logs", (request, response) => {
+  const { index } = request.params;
+  if (logsArray[index]) {
+    const deletedlogs = logsArray.splice(index, 1);
+    response.status(200).json(logsArray);
+  } else {
+    response.status(404).json({ error: "Not Found" });
+  }
+});
 
 module.exports = logs;
