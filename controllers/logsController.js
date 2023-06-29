@@ -99,23 +99,7 @@ function isValueValid(req, res, next) {
 }
 
 router.post("/", isValueValid, (req, res) => {
-  const {
-    captainName,
-    title,
-    post,
-    mistakesWereMadeToday,
-    daysSinceLastCrisis,
-  } = req.body;
-
-  const newEntry = {
-    captainName,
-    title,
-    post,
-    mistakesWereMadeToday,
-    daysSinceLastCrisis,
-  };
-
-  logsArray.push(newEntry);
+  logsArray.push(req.body);
   res.send(logsArray);
 });
 
