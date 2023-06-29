@@ -60,18 +60,19 @@ router.get("/logs", (req, res) => {
     });
     res.json(logsArray);
   } else {
-    res.redirect("/404");
+    res.redirect("/*");
   }
 });
 
 router.get("/:arrayIndex", (req, res) => {
   const { arrayIndex } = req.params;
+  const convertedIndex = Number(arrayIndex);
 
-  if (Number(arrayIndex) < logsArray.length) {
-    const foundLog = logsArray[Number(arrayIndex)];
+  if (logsArray[convertedIndex]) {
+    const foundLog = logsArray[convertedIndex];
     res.json(foundLog);
   } else {
-    res.redirect("/404");
+    res.redirect("/*");
   }
 });
 
@@ -106,22 +107,22 @@ router.post("/", isValueValid, (req, res) => {
 router.delete("/:arrayIndex", (req, res) => {
   const { arrayIndex } = req.params;
   const convertedIndex = Number(arrayIndex);
-  if (convertedIndex < logsArray.length) {
+  if (logsArray[convertedIndex]) {
     logsArray.splice(convertedIndex, 1);
     res.send(logsArray);
   } else {
-    res.redirect("/404");
+    res.redirect("/*");
   }
 });
 
 router.put("/:arrayIndex", isValueValid, (req, res) => {
   const { arrayIndex } = req.params;
   const convertedIndex = Number(arrayIndex);
-  if (convertedIndex < logsArray.length) {
+  if (logsArray[convertedIndex]) {
     logsArray[convertedIndex] = req.body;
     res.send(logsArray);
   } else {
-    res.redirect("/404");
+    res.redirect("/*");
   }
 });
 
