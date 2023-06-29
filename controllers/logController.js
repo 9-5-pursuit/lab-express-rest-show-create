@@ -7,7 +7,7 @@ router.get("/", (req, res) => {
   res.json(logArray);
 });
 
-router.post("/add-log-entry", (req, res) => {
+router.post("/", (req, res) => {
   const {
     captainName,
     daysSinceLastCrisis,
@@ -29,6 +29,10 @@ router.post("/add-log-entry", (req, res) => {
   res.status(201).json(logArray);
 });
 
+// router.post("/", (req, res) => {
+
+// })
+
 router.get("/:arrayIndex", (req, res) => {
   let { arrayIndex } = req.params;
 
@@ -39,7 +43,19 @@ router.get("/:arrayIndex", (req, res) => {
   }
 });
 
-router.delete("/delete-entry/:arrayIndex", (req, res) => {
+// From Class explanation:
+
+// router.get("/:arrayIndex", (req, res) => {
+//   let { arrayIndex } = req.params;
+
+//   if (!logArray[arrayIndex]) {
+//     res.redirect("/*")
+//   } else {
+//     res.json(logArray[arrayIndex]);
+//   }
+// });
+
+router.delete("/:arrayIndex", (req, res) => {
   const { arrayIndex } = req.params;
 
   if (logArray.length - 1 < arrayIndex) {

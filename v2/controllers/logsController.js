@@ -3,10 +3,6 @@ const router = express.Router();
 
 let logArray = require("../models/logs");
 
-function redirect() {
-  console.log("hi");
-}
-
 router.get("/", (req, res) => {
   res.json(logArray);
 });

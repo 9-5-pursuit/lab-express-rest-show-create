@@ -14,4 +14,8 @@ app.use("/", indexController);
 app.use("/logs", logController);
 app.use("/v2/logs", logsController);
 
+app.use("*", (req, res) => {
+  res.status(404).send("Sorry, no page found!");
+});
+
 module.exports = app;
