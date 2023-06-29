@@ -6,6 +6,7 @@ const logsArray = require("../models/log");
 router.get("/", (req, res) => {
   res.json(logsArray);
 });
+
 // GET - SHOW
 router.get("/:index", (req, res) => {
   const { index } = req.params;
