@@ -1,44 +1,45 @@
 const express = require("express");
-const logs = express.Router();
-const logsArray = require("../models/models.logs.js");
+const logsController = express.Router();
+
+let logsArray = require("../models/log.js");
 const { logsValidator } = require("../models/validator.js");
 
-logs.get("/", (request, response) => {
-  response.json(logsArray);
+logsController.get("/", (request, response) => {
+  response.send(logsArray);
 });
 
-logs.get("/:index", (request, response) => {
+logsController.get("/:index", (request, response) => {
   const { index } = request.params;
-  response.json(logsArray);
+
   if (logsArray[index]) {
     response.json(logsArray[index]);
   } else {
-    response.status(404).json({ error: "Log not Found" });
+    response.redirect("/400");
   }
 });
 
-logs.post("/", logsValidator, (request, response) => {
+logsController.post("/", logsValidator, (request, response) => {
   logsArray.push(request.body);
-  response.status(201).json(logsArray);
+  response.json(logsArray[logsArray.length - 1]);
 });
 
-logs.put("/:index", logsValidator, (request, response) => {
+logsController.put("/:index", logsValidator, (request, response) => {
   const { index } = request.params;
   if (logsArray[index]) {
-    logsArray[index] = request.body;
-    response.status(200).json(logsArray[index]);
+    logsArray.splice(index, 0, request.body);
+    response.status(200).json({ status: 200, message: "resource updated" });
   } else {
-    response.status(404).json({ error: "Not Found" });
+    response.redirect("/404");
   }
 });
-logs.delete("/:logs", (request, response) => {
+logsController.delete("/:index", (request, response) => {
   const { index } = request.params;
   if (logsArray[index]) {
-    const deletedlogs = logsArray.splice(index, 1);
-    response.status(200).json(logsArray);
+    logsArray.splice(index, 1);
+    response.status(200).json({ status: 200, message: "resource deleted" });
   } else {
-    response.status(404).json({ error: "Not Found" });
+    response.redirect("/404");
   }
 });
 
-module.exports = logs;
+module.exports = logsController;
