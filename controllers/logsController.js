@@ -65,5 +65,30 @@ router.delete('/:title', (req, res) => {
     
 })
 
+//PUT request - update a certain log
+
+router.put('/:title', (req, res) => {
+    let title = req.params.title;
+
+    let foundIndex = logData.findIndex((item) => {
+        return item.title.toLowerCase() == title.toLowerCase();
+    })
+
+    let foundObject = logData[foundIndex];
+
+    let newObject = {
+        ...foundObject,
+        ...req.body
+    }
+
+    if(Object.keys(req.body).length <= 0){
+        res.status(404).send("You need to provide some input to update the log!")
+    }
+    else{
+        res.json({message: "success!", dataChanged: newObject});
+    }
+    
+})
+
 //EXPORT
 module.exports = router;
