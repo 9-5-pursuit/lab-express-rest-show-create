@@ -9,7 +9,7 @@ const app = express();
 app.use(morgan("dev"));
 app.use(express.json());
 
-app.use("/", logsController);
+app.use("/logs", logsController);
 
 app.get("/", (req, res) => {
   res.send("welcome to the captain's log");
