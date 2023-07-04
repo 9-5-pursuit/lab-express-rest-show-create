@@ -1,20 +1,19 @@
-//DEPENDENCIES
 const express = require("express");
-//here we are bringing in express
 
-//CONFIGURATION
+//Bring in logs controller
+const logsController = require("./controllers/logsController");
+
 const app = express();
-//here we are calling the express function and assigning it to the variable app
 
-//ROUTES
+//USE the logs controller with the help of middlware
+app.use("/logs", logsController);
+
 app.get("/", (req, res) => {
   res.send("welcome to the captain's log");
 });
 
-//ERROR HANDLING
-app.get("*", (req, res) => {
-  res.json({ error: "Page not found" });
+app.use("*", (req, res) => {
+  res.status(404).send("Sorry, no page found!");
 });
 
-//EXPORT
 module.exports = app;
