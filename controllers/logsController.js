@@ -6,30 +6,36 @@ const router = express.Router();
 let logsArray = require("../models/log");
 
 //Get a list (or index) of all logs
+// Define a GET request endpoint at "/"
 router.get("/", (req, res) => {
   // console.log(logsArray);
-  res.send(logsArray);
+  res.send(logsArray); // Send the logsArray as the response
 });
 
 //Get an individual view (show one log by index)
+// Define a GET request endpoint at "/:index"
 router.get("/:index", (req, res) => {
-  const { index } = req.params;
-  // console.log(index);
+  const { index } = req.params; // Extract the value of "index" from the request parameters
+
   if (!logsArray[index]) {
-    res.redirect("/*");
+    // If the log item at the specified index does not exist
+    res.redirect("/*"); // Redirect to another route or page (denoted by "/*" here)
   } else {
-    res.json(logsArray[index]);
+    res.json(logsArray[index]); // Respond with the log item at the specified index as JSON
   }
 });
 
 //Create a new log
+// Define a POST request endpoint at "/"
 router.post("/", (req, res) => {
-  const newLog = req.body;
+  const newLog = req.body; // Extract the log data from the request body
+
   if (!newLog) {
-    res.send("cannot create empty lod");
+    // If the newLog is empty or not provided
+    res.send("cannot create empty log"); // Respond with an error message
   } else {
-    logsArray.push(newLog);
-    res.json(logsArray);
+    logsArray.push(newLog); // Add the new log to the logsArray
+    res.json(logsArray); // Respond with the updated logsArray
   }
 });
 
