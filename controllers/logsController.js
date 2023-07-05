@@ -33,4 +33,20 @@ router.post("/", (req, res) => {
   }
 });
 
+//Delete a log by index
+// Define a DELETE request endpoint at "/:index"
+router.delete("/:index", ({ params }, res) => {
+  const { index } = params; // Extract the value of "index" from the request parameters
+  const selectedItem = logsArray[index]; // Access the log item in the logsArray based on the provided index
+
+  if (!selectedItem) {
+    // If the selected item does not exist (invalid index)
+    res.status(404).json({ status: false, message: "invalid index" }); // Respond with a 404 status code and an error message
+  } else {
+    logsArray.splice(index, 1); // Remove the log item from logsArray using the splice method
+
+    res.json(logsArray); // Respond with the updated logsArray
+  }
+});
+
 module.exports = router;
