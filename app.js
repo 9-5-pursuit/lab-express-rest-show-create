@@ -5,6 +5,9 @@ const logsController = require("./controllers/logsController");
 
 const app = express();
 
+//Middleware for JSON parsing
+app.use(express.json());
+
 //USE the logs controller with the help of middlware
 app.use("/logs", logsController);
 
