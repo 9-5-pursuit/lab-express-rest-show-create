@@ -41,8 +41,8 @@ router.post("/", (req, res) => {
 
 //Delete a log by index
 // Define a DELETE request endpoint at "/:index"
-router.delete("/:index", ({ params }, res) => {
-  const { index } = params; // Extract the value of "index" from the request parameters
+router.delete("/:index", (req, res) => {
+  const index = Number(req.params.index); // Extract the value of "index" from the request parameters
   const selectedItem = logsArray[index]; // Access the log item in the logsArray based on the provided index
 
   if (!selectedItem) {
@@ -51,7 +51,24 @@ router.delete("/:index", ({ params }, res) => {
   } else {
     logsArray.splice(index, 1); // Remove the log item from logsArray using the splice method
 
-    res.json(logsArray); // Respond with the updated logsArray
+    res.json(selectedItem); // Respond with the updated logsArray
+  }
+});
+
+//Update a log
+// Define a PUT request endpoint at "/:index"
+router.put("/:index", (req, res) => {
+  let { index } = req.params; // Extract the value of "index" from the request parameters
+
+  let foundData = logsData[index]; // Access the log data in the logsData array based on the provided index
+
+  if (!foundData) {
+    // If the log data at the specified index does not exist
+    res.redirect("/"); // Redirect to another route or page (in this case, the root route "/")
+  } else {
+    logsData.splice(index, 1, req.body); // Replace the log data at the specified index with the updated log data from the request body
+
+    res.send(req.body); // Send the updated log data as the response
   }
 });
 
