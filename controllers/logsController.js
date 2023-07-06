@@ -77,14 +77,10 @@ router.get("/:arrayIndex", (req, res) => {
 });
 
 function isValueValid(req, res, next) {
-  const {
-    captainName,
-    title,
-    post,
-    mistakesWereMadeToday,
-    daysSinceLastCrisis,
-  } = req.body;
+  let { captainName, title, post, mistakesWereMadeToday, daysSinceLastCrisis } =
+    req.body;
 
+  daysSinceLastCrisis = Number(daysSinceLastCrisis);
   const status =
     typeof captainName === "string" &&
     typeof title === "string" &&
@@ -99,7 +95,7 @@ function isValueValid(req, res, next) {
   }
 }
 
-router.post("/", isValueValid, (req, res) => {
+router.post("/new", isValueValid, (req, res) => {
   logsArray.push(req.body);
   res.send(logsArray);
 });
@@ -115,7 +111,7 @@ router.delete("/:arrayIndex", (req, res) => {
   }
 });
 
-router.put("/:arrayIndex", isValueValid, (req, res) => {
+router.put("/:arrayIndex/edit", isValueValid, (req, res) => {
   const { arrayIndex } = req.params;
   const convertedIndex = Number(arrayIndex);
   if (logsArray[convertedIndex]) {
