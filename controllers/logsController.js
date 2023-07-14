@@ -20,18 +20,24 @@ router.get("/:index", (req, res) => {
 
 // POST - CREATE
 router.post("/", (req, res) => {
-  logsArray.push(req.body);
-  res.status(201).json(logsArray.length - 1);
+  const newLog = req.body;
+
+  if (!newLog) {
+    res.send("Log Empty: Please create a new log.");
+  } else {
+    logsArray.push(newLog);
+    res.json(logsArray);
+  }
 });
 
 // DELETE
 router.delete("/:index", (req, res) => {
   const { index } = req.params;
   if (!logsArray[index]) {
-    res.status(404).redirect("/logs");
+    res.status(404).json({ status: false, message: "Invalid Log Index" });
   } else {
     let deletedLog = logsArray.splice(index, 1);
-    res.status(200).json(deletedLog);
+    res.status(200).json(logsArray);
   }
 });
 
