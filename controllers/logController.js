@@ -45,12 +45,12 @@ router.delete("/:index", (req, res) => {
 router.put("/:index", (req, res) => {
     let index = req.params.index;
   
-    let foundData = logsData[index];
+    let foundData = logsArray[index];
   
     if (!foundData) {
       res.redirect("/");
     } else {
-      logsData.splice(index, 1, req.body);
+      logsArray.splice(index, 1, req.body);
   
       res.send(req.body);
     }
