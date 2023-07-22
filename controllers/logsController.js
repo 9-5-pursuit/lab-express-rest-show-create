@@ -84,11 +84,10 @@ router.put("/:index", (req, res) => {
   let foundData = logsArray[index];
 
   if (!foundData) {
-    res.redirect("/*");
+    res.redirect("/");
   } else {
-    logsArray.splice(...logsArray[index], index, 1, req.body);
-
-    res.send(logsArray);
+    logsArray.splice(index, 1, req.body);
+    res.send(req.body);
   }
 });
 
