@@ -34,15 +34,15 @@ router.post("/", (req, res) => {
 
 //PUT/Update	-> Update a log
 router.put("/:index", (req, res) => {
-  let index = req.params.index;
+  let index = Number(req.params.index);
 
   let newData = logsArray[index];
 
   if (!newData) {
-    res.redirect("/*");
+    res.redirect("/");
   } else {
     logsArray.splice(index, 1, req.body);
-    req.setEncoding(req.body);
+    req.send(req.body);
   }
 });
 
